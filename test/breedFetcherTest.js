@@ -1,6 +1,6 @@
 const { fetchBreedDescription } = require('../breedFetcher');
 const { assert } = require('chai');
-const { expect } = require('chai');
+// const { expect } = require('chai');
 
 describe('fetchDescription', () => {
   it('returns a string description for a valid breed, via callback', (done) => {
@@ -19,6 +19,7 @@ describe('fetchDescription', () => {
   it('returns a error when an unexisting breed is cat', () => {
     fetchBreedDescription('fweewfwe', (err, desc) => {
       assert.deepEqual(err, 'race not found');
+      assert.equal(desc, null);
     });
   });
 });

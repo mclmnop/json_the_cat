@@ -1,21 +1,26 @@
 //81dd32ec-3ee0-45e5-b650-b74596edc054 https://api.thecatapi.com/v1/breeds
 
 const request = require('request');
-const userInput = process.argv.slice(2)[0];
 
-const catBreeds = function(race) {
+
+const fetchBreedDescription = function(race, callback) {
   request(`https://api.thecatapi.com/v1/breeds/search?q=${race}`, function(error, response, body) {
 
     const data = JSON.parse(body);
     if (error) {
-      console.log(error.message);
+      return callback(error, null);
+    }
+    if (response.statusCode !== 200) {
+      const errorNotOK = 'Error not 200';
+      return callback(errorNotOK, null);
     }
     if (Object.keys(data).length === 0) {
-      console.log('race not found');
-      return;
+      const errorMessage = 'race not found';
+      return callback(errorMessage, null);
     }
-    console.log(data[0].description);
+    callback(null, data[0].description);
   })
 };
 
-catBreeds(userInput);
+module.exports = { fetchBreedDescription };
+

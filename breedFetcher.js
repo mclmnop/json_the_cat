@@ -11,7 +11,7 @@ const fetchBreedDescription = function(race, callback) {
       return callback(error, null);
     }
     if (response.statusCode !== 200) {
-      const errorNotOK = 'Error not 200';
+      const errorNotOK = 'URL not found';
       return callback(errorNotOK, null);
     }
     if (Object.keys(data).length === 0) {
@@ -19,7 +19,7 @@ const fetchBreedDescription = function(race, callback) {
       return callback(errorMessage, null);
     }
     callback(null, data[0].description);
-  })
+  });
 };
 
 module.exports = { fetchBreedDescription };
